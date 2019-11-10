@@ -797,7 +797,8 @@ def _get_json_data(eid=None, fpath=None):
     if os.access(fpath, os.R_OK):
         return gzip.open(fpath).read()
     try:
-        return urllib2.urlopen(_json_base_url % (eid, eid), timeout=5).read()
+        from web import nflcom_http_wrapper
+        return nflcom_http_wrapper(_json_base_url % (eid, eid), timeout=5)
     except urllib2.HTTPError:
         pass
     except socket.timeout:

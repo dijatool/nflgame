@@ -5,6 +5,7 @@ import json
 import os
 import sys
 import urllib2
+from web import nflcom_http_wrapper
 from collections import OrderedDict
 import xml.dom.minidom as xml
 
@@ -54,7 +55,7 @@ def week_schedule(year, stype, week):
     """
     url = schedule_url(year, stype, week)
     try:
-        dom = xml.parse(urllib2.urlopen(url))
+        dom = xml.parse(nflcom_http_wrapper(url))
     except urllib2.HTTPError:
         print >> sys.stderr, 'Could not load %s' % url
         return []
